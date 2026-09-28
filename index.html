@@ -3,292 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Sai Swathi Lakkoju | Avionics & Edge AI Engineer</title>
+    <title>Sri Sai Swathi Lakkoju | Avionics & Edge AI</title>
+    
+    <!-- Google Fonts for Premium Tech Look -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --text-color: #c9d1d9;
-            --text-dim: #8b949e;
-            --accent-color: #58a6ff;
-            --neon-blue: #00f0ff;
-            --border-color: #30363d;
+            --bg-dark: #030303;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --primary-gradient: linear-gradient(135deg, #00f2ff 0%, #7928ca 100%);
+            --accent-glow: 0 0 30px rgba(0, 242, 255, 0.25);
+            --neon-blue: #00f2ff;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 0 20px;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
         }
+
+        /* --- AMBIENT NEBULA BACKGROUND --- */
+        .background-fx {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 10% 40%, rgba(0, 242, 255, 0.05), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(121, 40, 202, 0.06), transparent 30%);
+            animation: drift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            0% { transform: scale(1) translate(0px, 0px); }
+            100% { transform: scale(1.1) translate(20px, -20px); }
+        }
+
+        /* --- PURE CSS 3D CUBE ANIMATION CONTROLLER --- */
+        .canvas-container {
+            position: absolute;
+            top: 60px;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            perspective: 800px;
+            z-index: -1;
+        }
+
+        .cube-matrix {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: autoRotate 18s linear infinite;
+        }
+
+        @keyframes autoRotate {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: 90px;
+            left: 90px;
+            background: rgba(0, 242, 255, 0.02);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+            backdrop-filter: blur(2px);
+        }
+
+        /* 3D positioning mapping */
+        .front  { transform: translateZ(60px); }
+        .back   { transform: rotateY(180deg) translateZ(60px); }
+        .left   { transform: rotateY(-90deg) translateZ(60px); border-color: rgba(121, 40, 202, 0.4); }
+        .right  { transform: rotateY(90deg) translateZ(60px); border-color: rgba(121, 40, 202, 0.4); }
+        .top    { transform: rotateX(90deg) translateZ(60px); }
+        .bottom { transform: rotateX(-90deg) translateZ(60px); }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 0;
+            padding: 80px 24px;
         }
 
-        /* Header / Hero Section */
+        /* --- HERO HEADER SETUP --- */
         header {
-            margin-bottom: 60px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 40px;
+            margin-bottom: 100px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            background: rgba(0, 242, 255, 0.06);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .badge-pulse {
+            width: 6px;
+            height: 6px;
+            background-color: var(--neon-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--neon-blue);
+            animation: beacon 1.5s infinite;
+        }
+
+        @keyframes beacon {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px var(--neon-blue); }
+            100% { transform: scale(0.9); opacity: 0.6; }
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .tagline {
-            font-family: 'Courier New', Courier, monospace;
-            color: var(--neon-blue);
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
         }
 
         .bio {
-            color: var(--text-dim);
-            font-size: 1.1rem;
-            max-width: 750px;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            font-weight: 300;
         }
 
-        /* Sections */
-        section {
-            margin-bottom: 50px;
+        .bio strong {
+            color: #fff;
+            font-weight: 500;
         }
 
-        h2 {
-            font-size: 1.6rem;
-            color: #ffffff;
-            margin-bottom: 25px;
+        /* --- MODERN GLOW CARDS --- */
+        section { margin-bottom: 80px; }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #64748b;
+            margin-bottom: 32px;
             display: flex;
             align-items: center;
+            gap: 16px;
         }
 
-        h2::after {
+        .section-title::after {
             content: '';
-            flex: 1;
-            margin-left: 20px;
             height: 1px;
-            background-color: var(--border-color);
+            background: linear-gradient(90deg, var(--glass-border), transparent);
+            flex-grow: 1;
         }
 
-        /* Timeline / Experience Layout */
         .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 24px;
-            margin-bottom: 20px;
-            transition: transform 0.2s, border-color 0.2s;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 36px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
 
         .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-color);
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(0, 242, 255, 0.25);
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: var(--accent-glow);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .job-title {
-            font-size: 1.2rem;
-            color: #ffffff;
+        .role {
+            font-size: 1.4rem;
             font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.3px;
         }
 
         .company {
-            color: var(--accent-color);
-            font-weight: 500;
+            background: linear-gradient(90deg, #00f2ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
         }
 
-        .date {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            font-family: monospace;
+        .year {
+            font-family: 'Space Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
         }
 
-        .card ul {
-            list-style-type: none;
-        }
+        ul { list-style: none; }
 
-        .card li {
-            margin-bottom: 8px;
+        li {
+            color: var(--text-muted);
+            margin-bottom: 12px;
             position: relative;
-            padding-left: 15px;
-            color: var(--text-color);
+            padding-left: 24px;
+            font-size: 1.05rem;
         }
 
-        .card li::before {
-            content: "▹";
+        li::before {
+            content: '//';
             position: absolute;
             left: 0;
             color: var(--neon-blue);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
 
-        /* Badges / Skills */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        /* --- INTERACTIVE SKILLS MODULE --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 14px;
         }
 
-        .badge {
-            background-color: rgba(88, 166, 255, 0.1);
-            color: var(--accent-color);
-            border: 1px solid rgba(88, 166, 255, 0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
+        .skill-tag {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+            font-family: 'Space Mono', monospace;
             font-size: 0.85rem;
-            font-family: monospace;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .badge-alt {
-            background-color: rgba(0, 240, 255, 0.05);
-            color: var(--neon-blue);
-            border: 1px solid rgba(0, 240, 255, 0.15);
+        .skill-tag:hover {
+            background: var(--primary-gradient);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 242, 255, 0.2);
+            transform: scale(1.05);
         }
 
-        /* Contact Links */
-        .contact-links {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
+        /* --- COMPONENT BUTTONS --- */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: #ffffff;
+            color: #000000;
             text-decoration: none;
-            border-radius: 4px;
-            font-family: monospace;
-            transition: background 0.2s;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-top: 24px;
+            transition: all 0.3s ease;
         }
 
-        .btn:hover {
-            background-color: rgba(88, 166, 255, 0.1);
+        .cta-btn:hover {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: var(--accent-glow);
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 600px) {
-            .card-header {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .date {
-                margin-top: 5px;
-            }
+        @media (max-width: 900px) {
+            .canvas-container { display: none; } /* Hide 3D asset on small mobile layouts to keep fast response */
+            h1 { font-size: 2.8rem; }
+            .container { padding: 50px 20px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Ambient Animation Matrix Layer -->
+    <div class="background-fx"></div>
+
     <div class="container">
         
-        <!-- HERO / HEADER -->
         <header>
-            <h1>Sri Sai Swathi Lakkoju</h1>
-            <div class="tagline">~/avionics-engineer & edge-ai-architect</div>
-            <p class="bio">
-                M.Tech Post-Graduate from IIT Goa (9.96 GPA) specialized in VLSI and Neural Network Hardware Accelerators. Currently engineering fault-tolerant telemetry and processing systems for next-generation launch vehicles and CubeSats at Skyroot Aerospace.
-            </p>
-        </header>
-
-        <!-- RESEARCH & PUBLICATIONS -->
-        <section id="research">
-            <h2>Featured Research</h2>
-            <div class="card" style="border-left: 3px solid var(--neon-blue);">
-                <div class="card-header">
-                    <div>
-                        <div class="job-title">SANA: A Temporal Sparsity-Aware Neuromorphic Accelerator</div>
-                        <div class="company">IEEE APCCAS Conference</div>
-                    </div>
-                    <div class="date">Publication</div>
-                </div>
-                <ul>
-                    <li>Co-authored architectural research on Neuromorphic computing paradigms optimized for localized inference execution.</li>
-                    <li>Designed an adaptive scheduling logic framework targeting temporal sparsity profiles to eliminate static compute power overheads.</li>
-                    <li>M.Tech Thesis foundations built around custom transistor-level structural layout execution in a deep sub-micron 28nm CMOS node.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- INDUSTRIAL EXPERIENCE -->
-        <section id="experience">
-            <h2>Professional Experience</h2>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="job-title">Avionics Engineer</div>
-                        <div class="company">Skyroot Aerospace — Hyderabad</div>
-                    </div>
-                    <div class="date">2026 - Present</div>
-                </div>
-                <ul>
-                    <li>Designing and verifying Telemetry, Tracking, and Command (TMTC) subsystem architectures for scalable CubeSat and low-earth orbit platforms.</li>
-                    <li>Developing low-latency interface communication logic modules running under absolute deterministic hardware conditions.</li>
-                    <li>Validating real-time state machine pipelines across physical embedded targets and system-on-chip test environments.</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="job-title">Systems Engineer</div>
-                        <div class="company">Tata Consultancy Services (TCS)</div>
-                    </div>
-                    <div class="date">2021 - 2024</div>
-                </div>
-                <ul>
-                    <li>Managed production deployments and system-level interface integration architectures for 3.5 years.</li>
-                    <li>Engineered automated logic infrastructure workflows to optimize pipeline data reliability frameworks.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- TECHNICAL SKILLS -->
-        <section id="skills">
-            <h2>Technical Domains</h2>
-            <div class="skills-grid">
-                <span class="badge">ASIC/VLSI Layout</span>
-                <span class="badge">Neuromorphic Hardware</span>
-                <span class="badge">Verilog / RTL Design</span>
-                <span class="badge">Static Timing Analysis (STA)</span>
-                <span class="badge">28nm CMOS Layout Validation</span>
-                <span class="badge">SPICE Simulation</span>
-                <span class="badge-alt">Telemetry (TMTC)</span>
-                <span class="badge-alt">FPGA Prototyping</span>
-                <span class="badge-alt">System Interfacing (SPI/I2C/CAN)</span>
-                <span class="badge-alt">Python / Tcl Scripting</span>
-            </div>
-        </section>
-
-        <!-- FOOTER & CONTACT -->
-        <section id="contact">
-            <h2>Get In Touch</h2>
-            <p style="color: var(--text-dim); margin-bottom: 20px;">Open to discussing Edge-AI microarchitectures, hardware prototyping bottlenecks, and hardware acceleration vectors.</p>
-            <div class="contact-links">
-                <a href="https://linkedin.com" target="_blank" class="btn">connect_via_linkedin</a>
-            </div>
-        </section>
-
-    </div>
-
-</body>
-</html>
